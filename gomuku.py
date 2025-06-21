@@ -7,12 +7,12 @@ def ZeroField(n):
     return [[0] * n for i in range(n)]
 
 def drawX(screen, x, y):
-    pygame.draw.line(screen, (0, 255, 0), (x * 25, y * 25), (x * 25 + 24, y * 25 + 24))
-    pygame.draw.line(screen, (0, 255, 0), (x * 25 + 24, y * 25), (x * 25, y * 25 + 24))
+    pygame.draw.line(screen, (0, 255, 0), (x * 25 + 1, y * 25 + 1), (x * 25 + 23, y * 25 + 23))
+    pygame.draw.line(screen, (0, 255, 0), (x * 25 + 23, y * 25 + 1), (x * 25 + 1, y * 25 + 23))
 
 def drawO(screen, x, y):
-    pygame.draw.circle(screen, (0, 255, 0), (x * 25 + 13, y * 25 + 13), 12)
-    pygame.draw.circle(screen, (0, 0, 0), (x * 25 + 13, y * 25 + 13), 11)
+    pygame.draw.circle(screen, (0, 255, 0), (x * 25 + 13, y * 25 + 13), 11)
+    pygame.draw.circle(screen, (0, 0, 0), (x * 25 + 13, y * 25 + 13), 10)
 
 def main():
     width = 501
@@ -21,6 +21,7 @@ def main():
     running = True
     xIdx = 0
     yIdx = 0
+    turn = 1
     board = ZeroField(20)
     while running:
 
@@ -36,6 +37,8 @@ def main():
             for x in range(20):
                 if(board[x][y] == 1):
                     drawX(screen, x, y)
+                elif (board[x][y] == 2):
+                    drawO(screen, x, y)
 
         for events in pygame.event.get():
             if events.type == pygame.QUIT:
@@ -59,8 +62,14 @@ def main():
                         yIdx = 19
                 elif events.key == pygame.K_SPACE:
                     if(board[xIdx][yIdx] == 0):
-                        print(1)
-                        board[xIdx][yIdx] = 1
+                        if(turn == 1):
+                            print(1)
+                            board[xIdx][yIdx] = 1
+                            turn = 2
+                        else:
+                            print(2)
+                            board[xIdx][yIdx] = 2
+                            turn = 1
                     
 
 main()
