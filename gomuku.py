@@ -37,38 +37,44 @@ def checkDiagonalRight(board, x, y):
         if(board[x][y] != board[x + i][y + i]):
             return False
     return True
+
 def checkDiagonalLeft(board, x, y):
     if(board[x][y] == 0):
         return False
     for i in range(5):
-        if(board[x][y] != board[x - i][y + i] or x < i or y < i):
+        if(board[x][y] != board[x - i][y + i]):
             return False
     return True
 
-
 def checkWin(board):
-    for y in range (16):
-        for x in range(16):
+    for y in range (0, 20):
+        for x in range(0, 16):
             if (checkRow(board, x, y)):
                 if (board[x][y] == 1):
                     return 1
                 elif (board[x][y] == 2):
                     return 2
-            elif (checkColumn(board, x, y)):
+    for y in range(0, 16):
+        for x in range(0, 20):
+            if (checkColumn(board, x, y)):
                 if(board[x][y] == 1):
                     return 1
                 elif (board[x][y] == 2):
                     return 2
-            elif (checkDiagonalRight(board, x, y)):
+    for y in range(0, 16):
+        for x in range(0, 16):
+            if (checkDiagonalRight(board, x, y)):
                 if(board[x][y] == 1):
                     return 1
                 elif (board[x][y] == 2):
                     return 2
-            elif (checkDiagonalLeft(board, x, y)):
-                if(board[x][y] == 1):
-                    return 1
-                elif (board[x][y] == 2):
-                    return 2
+    for y in range(0, 16):
+            for x in range(4, 20):
+                if (checkDiagonalLeft(board, x, y)):
+                    if(board[x][y] == 1):
+                        return 1
+                    elif (board[x][y] == 2):
+                        return 2
 
 def main():
     width = 501
