@@ -41,7 +41,7 @@ def checkDiagonalLeft(board, x, y):
     if(board[x][y] == 0):
         return False
     for i in range(5):
-        if(board[x][y] != board[x - i][y + i]):
+        if(board[x][y] != board[x - i][y + i] or x < i or y < i):
             return False
     return True
 
