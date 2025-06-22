@@ -14,17 +14,79 @@ def drawO(screen, x, y):
     pygame.draw.circle(screen, (0, 255, 0), (x * 25 + 13, y * 25 + 13), 11)
     pygame.draw.circle(screen, (0, 0, 0), (x * 25 + 13, y * 25 + 13), 10)
 
+def checkRow(board, x, y):
+    if(board[x][y] == 0):
+        return False
+    for i in range(5):
+        if(board[x][y] != board[x + i][y]):
+            return False
+    return True
+
+def checkColumn(board, x, y):
+    if(board[x][y] == 0):
+        return False
+    for i in range(5):
+        if(board[x][y] != board[x][y + i]):
+            return False
+    return True
+
+def checkDiagonalRight(board, x, y):
+    if(board[x][y] == 0):
+        return False
+    for i in range(5):
+        if(board[x][y] != board[x + i][y + i]):
+            return False
+    return True
+def checkDiagonalLeft(board, x, y):
+    if(board[x][y] == 0):
+        return False
+    for i in range(5):
+        if(board[x][y] != board[x - i][y + i]):
+            return False
+    return True
+
+
+def checkWin(board):
+    for y in range (16):
+        for x in range(16):
+            if (checkRow(board, x, y)):
+                if (board[x][y] == 1):
+                    return 1
+                elif (board[x][y] == 2):
+                    return 2
+            elif (checkColumn(board, x, y)):
+                if(board[x][y] == 1):
+                    return 1
+                elif (board[x][y] == 2):
+                    return 2
+            elif (checkDiagonalRight(board, x, y)):
+                if(board[x][y] == 1):
+                    return 1
+                elif (board[x][y] == 2):
+                    return 2
+            elif (checkDiagonalLeft(board, x, y)):
+                if(board[x][y] == 1):
+                    return 1
+                elif (board[x][y] == 2):
+                    return 2
+
 def main():
     width = 501
     height = 501
     screen = pygame.display.set_mode((width, height))
     running = True
-    xIdx = 0
-    yIdx = 0
+    xIdx = 9
+    yIdx = 9
     turn = 1
     board = ZeroField(20)
     while running:
-
+        if(checkWin(board) == 1):
+            print("Win X")
+            running = False
+        elif (checkWin(board) == 2):
+            print("Win O")
+            running = False
+        
         # pygame.draw.line(screen, (255, 0, 0), (zoomX * i + hS, zoomY * f(i) + vS), ((zoomX * (i + 1) + hS, zoomY * f(i + 1) + vS)))
         pygame.display.flip()
         screen.fill((0, 0, 0))
